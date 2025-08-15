@@ -82,7 +82,7 @@ function App() {
     color: '#fff',
   };
 
-  // Oranžové tlačítko – text nechej černý, jako u „Export JSON“
+  // Oranžové tlačítko – text si nechám černý, jako u „Export JSON“
   const backupZipBtnStyle = {
     ...commonFullWidthBtn,
     background: '#f39c12',
