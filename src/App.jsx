@@ -19,7 +19,7 @@ import {
 } from "docx";
 
 function App() {
-  // ================== KONSTANTY / UI STAVY ==================
+  // ================== KONSTANTY / UI STAVY ================== VÍCE v README.md 
   const passwordHash = '312351bff07989769097660a56395065'; // MD5("2025")
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userPasswordInput, setUserPasswordInput] = useState('');

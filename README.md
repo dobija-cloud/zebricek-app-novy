@@ -10,3 +10,28 @@ Currently, two official plugins are available:
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+MD5 generování https://www.maxiorel.cz/md5-online-generator mám uloženo v doc v CodersLab složce AKTUALNI HESLO  aplikace Zebricek a KDE GENEROVAT
+
+
+
+# Žebříček stolních tenistů
+
+## Jak spustit
+- Vývoj: `npm install` → `npm run dev`
+- Build: `npm run build`
+- Náhled produkce: `npm run preview`
+
+## Nasazení
+Nahrát obsah složky `dist/` na hosting (statické soubory).
+
+## Proměnné prostředí
+- `.env` (ignorováno v gitu), pro front-end pouze `VITE_*`.
+
+## Struktura
+- `src/` – zdrojáky (React)
+- `public/` – statická aktiva
+- `dist/` – build (negitovat)
+
+## Poznámky / TODO
+- …
