@@ -1,0 +1,282 @@
+/* Univerzální reset pro konzistentní box model a odstranění výchozích mezer */
+* { box-sizing: border-box; margin:0; padding:0; }
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #33691e 30%, #1b5e20 90%);
+  color: #222;
+  min-height:100vh; /* Zajistí, že patička bude vždy dole */
+  display: flex;
+  flex-direction: column; /* Umožní flexbox pro layout stránky */
+}
+
+/* Hlavní obsah stránky, aby zabral dostupný prostor */
+#root {
+  flex: 1; /* Zajistí, že React aplikace zabere veškerý dostupný prostor */
+  display: flex;
+  flex-direction: column;
+}
+
+header { padding:1rem; display: flex; justify-content: space-between; align-items: center; }
+header .logo {
+  font-family:'Trebuchet MS',sans-serif;
+  font-size:2.8rem; color:#FFD700;
+}
+.calc-title {
+  font-family:'Trebuchet MS',sans-serif;
+  font-size:1.6rem; color:#fff; background:#1b5e20;
+  padding:.5rem; border-radius:4px; margin-bottom:1rem; text-align:left;
+}
+.container { display:flex; gap:1rem; padding:1rem; }
+.form-section {
+  flex:0 0 20%; background:#fff; padding:1rem; border-radius:8px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+.form-section label { margin-top:.75rem; font-weight:bold; display:block; }
+.form-section input, .form-section select, .form-section button {
+  width:100%; padding:.5rem; margin-top:.25rem; border:1px solid #bbb; border-radius:4px;
+}
+.btn-calc { background:#1b5e20; color:#fff; border:none; cursor:pointer; font-size:1rem; }
+.btn-calc:hover { background:#0d3d10; }
+.imports { margin-top:1rem; }
+.exports { margin-top:1rem; display:flex; gap:.5rem; flex-wrap: wrap; }
+.exports button {
+  flex:1; padding:.5rem; border:none; background:#fff; border:1px solid #1b5e20;
+  color:#1b5e20; cursor:pointer; border-radius:4px;
+}
+.exports button:hover { background:#e8f5e9; }
+.table-section {
+  flex:1; background:#fafafa; padding:1rem; border-radius:8px;
+}
+.update-bar { display:flex; align-items:center; gap:.5rem; margin-bottom:1rem; }
+.update-bar input { border:none; background:transparent; font-weight:bold; }
+.filter-bar { margin-bottom:1rem; }
+.filter-bar select {
+  padding:.5rem; border-radius:4px; border:1px solid #bbb;
+}
+#zebricek-table {
+  width:100%; border-collapse:collapse;
+}
+#zebricek-table th, #zebricek-table td {
+  padding:.5rem; border:1px solid #ddd;
+}
+#zebricek-table thead th {
+  background:#2e7d32; color:#fff;
+}
+#zebricek-table th.sortable { cursor:pointer; }
+#zebricek-table td.col-left { text-align:left; padding-left:.75rem; }
+#zebricek-table td.align-left { text-align:left; }
+#zebricek-table td.align-center { text-align:center; }
+#zebricek-table td.align-right { text-align:right; padding-right:.75rem; }
+#zebricek-table th.align-left { text-align:left; }
+#zebricek-table th.align-center { text-align:center; }
+#zebricek-table th.align-right { text-align:right; }
+#zebricek-table tbody tr:nth-child(even) { background:#f1f8e9; }
+.row-btn {
+  margin:0 .25rem; padding:.25rem .5rem; border:none; border-radius:4px; cursor:pointer;
+}
+.btn-edit { background:#ffb300; color:#fff; }
+.btn-delete { background:#e53935; color:#fff; }
+/* Tlačítka pro posouvání - základní styly */
+.scroll-button { /* Nová třída pro tlačítka posouvání */
+  position:fixed;
+  background-color: #cddc39;
+  border:none;
+  padding:.5rem .75rem;
+  border-radius:50%;
+  font-size:1.5rem;
+  cursor:pointer;
+  z-index:999;
+  display:none; /* Výchozí skryté */
+}
+#to-top {
+  bottom:20px;
+  right:20px;
+}
+#to-bottom {
+  bottom:80px; /* Umístěno nad tlačítkem Zpět nahoru */
+  right:20px;
+}
+
+
+/* Barevné exportní tlačítka */
+#export-csv {
+  background-color: #dcedc8; /* světle zelená */
+  color: #000;
+}
+#export-xlsx {
+  background-color: #2e7d32; /* tmavě zelená */
+  color: #fff;
+}
+#export-docx {
+  background-color: #1565c0; /* tmavě modrá */
+  color: #fff;
+}
+#export-json {
+  background-color: #ffb74d; /* oranžová */
+  color: #000;
+}
+
+/* --- PATIČKA --- */
+.app-footer { /* Nová třída pro patičku */
+  background: linear-gradient(135deg, #33691e 30%, #1b5e20 90%); /* Stejné pozadí jako body */
+  color: #FFD700;
+  padding: 1rem;
+  text-align: left;
+  font-family: 'Trebuchet MS', sans-serif;
+  display: flex;
+  justify-content: flex-start; /* Zarovná obsah patičky doleva */
+  align-items: center;
+  gap: 1rem; /* Mezera mezi prvky v patičce */
+  margin-top: auto; /* Přitlačí patičku ke spodnímu okraji */
+  flex-wrap: wrap; /* Umožní zalamování prvků v patičce na menších obrazovkách */
+}
+
+.footer-weather-display { /* Nová třída pro div s počasím v patičce */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #FFD700;
+  font-size: 1.2rem;
+}
+
+
+/* --- RESPONSIVNÍ STYLY --- */
+@media (max-width: 768px) {
+  /* Hlavní kontejner obsahu */
+  .container {
+    flex-direction: column; /* Sekce se srovnají pod sebe */
+    gap: 1rem; /* Mezera mezi sekcemi */
+  }
+
+  /* Sekce formuláře */
+  .form-section {
+    flex: 0 0 auto; /* Zruší pevnou šířku na mobilu */
+    width: 100%; /* Zabere celou šířku */
+  }
+
+  /* Sekce tabulky */
+  .table-section {
+    overflow-x: auto; /* Povolí horizontální posuvník pro tabulku */
+    width: 100%; /* Zajistí, že sekce zabere celou šířku */
+  }
+
+  /* HLAVNÍ ZMĚNY PRO TABULKU NA MOBILU */
+  #zebricek-table {
+    display: block; /* Aby se tabulka chovala jako blokový element a overflow-x fungovalo */
+    width: max-content; /* Tabulka zabere jen tolik místa, kolik potřebuje její obsah */
+    min-width: 100%; /* Zajistí, že tabulka se roztáhne alespoň na 100% šířky rodiče, pokud je to možné */
+  }
+
+  #zebricek-table th,
+  #zebricek-table td {
+    white-space: nowrap; /* Zabrání zalamování textu v buňkách */
+    padding: 0.3rem 0.5rem; /* Menší padding pro buňky */
+    font-size: 0.85rem; /* Menší písmo pro buňky */
+  }
+
+  #zebricek-table thead th {
+    font-size: 0.9rem; /* Menší písmo pro hlavičky tabulky */
+  }
+
+  /* Hlavička na mobilu */
+  header {
+    flex-direction: column; /* Srovná logo pod sebe */
+    align-items: flex-start; /* Zarovná doleva */
+    padding: 0.5rem; /* Menší padding */
+  }
+
+  header .logo {
+    margin-bottom: 0.5rem; /* Mezera pod logem */
+    width: 100%; /* Logo zabere celou šířku */
+    text-align: left; /* Zarovná logo doleva */
+    font-size: 2.2rem; /* Mírně menší písmo loga */
+  }
+
+  /* Patička na mobilu */
+  .app-footer {
+    flex-direction: column; /* Srovná obsah patičky pod sebe */
+    align-items: flex-start; /* Zarovná doleva */
+    padding: 0.5rem; /* Menší padding */
+  }
+
+  .app-footer .footer-weather-display {
+    font-size: 1rem; /* Ještě menší písmo pro počasí v patičce na mobilu */
+    width: 100%; /* Počasí zabere celou šířku */
+    text-align: left; /* Zarovná počasí doleva */
+  }
+
+  /* Obecné úpravy pro formulářové prvky na mobilu */
+  .form-section label,
+  .form-section input,
+  .form-section select,
+  .form-section button {
+    font-size: 0.9rem; /* Mírně menší písmo pro formulářové prvky */
+  }
+}
+
+/* JEŠTĚ STICKY - FIX PRVNÍHO ŘÁDKU 
+MOŽNÁ umazat od 217 - zakomentovat -  moc se mi to nelíbí..., ale funguje, uvidíme... :-) 
+/* Sticky hlavička tabulky */
+#zebricek-table thead th {
+  position: sticky;   /*position: sticky → position: static - MOHU PŘEPÍNAT, POZOR - při static zakomentovat dole box-shadow! */
+  top: 0;           /* pokud bych měl fixní header, zkusit dát jeho výšku, např. 64px, ALE NETŘEBA */
+  z-index: 2;
+  background: #2e7d32;  /* stejné pozadí jako teď, ať neprosvítá */
+  color: #fff;
+  /* volitelně: malé oddělení při přilepení, ale netřeba, MOŽNÁ ZAKOMENTOVAT: */ 
+   box-shadow: 0 2px 0 rgba(0,0,0,.08); /* MOŽNÁ ZAKOMENTOVAT, UVIDÍME */
+}
+
+
+/*JEŠTĚ zaoblení sticky řádku: */
+/* (máš-li už sticky styly, nechej je; přidáváme jen rohy) */
+
+/* Pomůže, aby se radius opravdu vykreslil i na buňkách tabulky */
+#zebricek-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* Zaoblit vnější rohy hlavičky */
+#zebricek-table thead th:first-child {
+  border-top-left-radius: 8px;   /* upravit si velikost, 8px vypadá dobře */
+}
+
+#zebricek-table thead th:last-child {
+  border-top-right-radius: 8px; /* upravit si velikost, 8px vypadá dobře */
+}
+
+/* MOŽNÁé: ať barva neprolézá přes radius (někdy pomůže) */
+#zebricek-table thead th {
+  background-clip: padding-box;
+}
+
+
+/* Umožní lámat tlačítka na další řádek */
+.exports { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* „Smazat vše“ na samostatný řádek, ale bez roztažení na celou šířku */
+#delete-all {
+  flex: 0 0 100%;     /* zlom řádek */
+  width: max-content; /* nech šířku podle obsahu */
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+
+/* skupina exportů může zůstat flex + wrap */
+.exports {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* DELETE: nový řádek + zúžit + vycentrovat */
+#delete-all {
+  flex-basis: 100%;                 /* vynutí nový řádek pod exporty */
+  display: block;
+  width: min(360px, 90%) !important;/* přepíše případné width:100% z minulosti */
+  margin: 10px auto 0 !important;   /* auto = střed vodorovně */
+  text-align: center;
+  padding: 12px 28px;               /* jen pro pěkný vzhled */
+}

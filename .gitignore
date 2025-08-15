@@ -1,0 +1,39 @@
+# Node / logy
+node_modules/
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Vite / build
+dist/
+dist-ssr/
+*.local
+
+# Env soubory (ponecháme jen příklad)
+.env*
+!.env.example
+
+# OS
+.DS_Store
+.AppleDouble
+.LSOverride
+*~
+
+# Editory / nástroje
+.vscode/
+.idea/
+.settings/
+.eslintcache
+
+# Cache / testy / další
+.sass-cache/
+.cache/
+.parcel-cache/
+coverage/
+
+# Volitelné
+.test/
+.solution

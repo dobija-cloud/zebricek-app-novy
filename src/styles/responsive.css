@@ -1,0 +1,90 @@
+/* Univerzální reset pro konzistentní box model a odstranění výchozích mezer */
+* {
+  box-sizing: border-box; /* Zajišťuje, že padding a border jsou zahrnuty do celkové šířky/výšky elementu */
+  margin: 0; /* Odstraní výchozí vnější okraje */
+  padding: 0; /* Odstraní výchozí vnitřní odsazení */
+}
+
+/* --- RESPONSIVNÍ STYLY --- */
+@media (max-width: 768px) {
+  /* ZAJISTÍME, ŽE HLAVNÍ KONTENERY NEBUDOU PŘETÉKAT */
+  body, #root, main {
+    width: 100%;
+    overflow-x: hidden; /* Zabrání horizontálnímu posuvníku na úrovni body/root/main */
+  }
+
+  /* Hlavní kontejner obsahu */
+  .container {
+    flex-direction: column; /* Sekce se srovnají pod sebe */
+    gap: 1rem; /* Mezera mezi sekcemi */
+    width: 100%; /* Zajistí, že kontejner zabere celou šířku */
+    padding: 0.5rem; /* Menší padding na mobilu */
+  }
+
+  /* Sekce formuláře */
+  .form-section {
+    flex: 0 0 auto; /* Zruší pevnou šířku na mobilu */
+    width: 100%; /* Zabere celou šířku */
+    padding: 1rem; /* Udržet padding uvnitř sekce */
+  }
+
+  /* Sekce tabulky */
+  .table-section {
+    overflow-x: auto; /* KLÍČOVÉ: Povolí horizontální posuvník pro tabulku */
+    width: 100%; /* Zajistí, že sekce zabere celou šířku */
+    -webkit-overflow-scrolling: touch; /* Vylepší posouvání na iOS */
+  }
+
+  /* HLAVNÍ ZMĚNY PRO TABULKU NA MOBILU */
+  #zebricek-table {
+    display: block; /* Aby se tabulka chovala jako blokový element a overflow-x fungovalo */
+    width: max-content; /* Tabulka zabere jen tolik místa, kolik potřebuje její obsah */
+    min-width: 100%; /* Zajistí, že tabulka se roztáhne alespoň na 100% šířky rodiče, pokud je to možné */
+  }
+
+  #zebricek-table th,
+  #zebricek-table td {
+    white-space: nowrap; /* Zabrání zalamování textu v buňkách */
+    padding: 0.3rem 0.5rem; /* Menší padding pro buňky */
+    font-size: 0.85rem; /* Menší písmo pro buňky */
+  }
+
+  #zebricek-table thead th {
+    font-size: 0.9rem; /* Menší písmo pro hlavičky tabulky */
+  }
+
+  /* Hlavička na mobilu */
+  header {
+    flex-direction: column; /* Srovná logo pod sebe */
+    align-items: flex-start; /* Zarovná doleva */
+    padding: 0.5rem; /* Menší padding */
+  }
+
+  header .logo {
+    margin-bottom: 0.5rem; /* Mezera pod logem */
+    width: 100%; /* Logo zabere celou šířku */
+    text-align: left; /* Zarovná logo doleva */
+    font-size: 2.2rem; /* Mírně menší písmo loga */
+  }
+
+  /* Patička na mobilu (pokud ji budeme mít) */
+  .app-footer {
+    flex-direction: column; /* Srovná obsah patičky pod sebe */
+    align-items: flex-start; /* Zarovná doleva */
+    padding: 0.5rem; /* Menší padding */
+  }
+
+  .app-footer .footer-weather-display {
+    font-size: 1rem; /* Ještě menší písmo pro počasí v patičce na mobilu */
+    width: 100%; /* Počasí zabere celou šířku */
+    text-align: left; /* Zarovná počasí doleva */
+  }
+
+  /* Obecné úpravy pro formulářové prvky na mobilu */
+  .form-section label,
+  .form-section input,
+  .form-section select,
+  .form-section button {
+    font-size: 0.9rem; /* Mírně menší písmo pro formulářové prvky */
+  }
+}
